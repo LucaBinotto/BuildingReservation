@@ -1,20 +1,29 @@
 package it.epicode.be.model;
 
+import java.util.List;
+
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
-import org.springframework.data.annotation.Id;
+import org.springframework.stereotype.Component;
 
 import lombok.Data;
 
 @Data
+@Entity
+@Component
 public class Building {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private String id;
+	private Long id;
 	private String nome;
 	private String address;
-	private City city;
+	private String city;
+	@OneToMany(mappedBy = "building")
+	private List<Postazione> postazioni;
 
 }
