@@ -1,5 +1,6 @@
 package it.epicode.be.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -20,6 +21,7 @@ public class Postazione {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(unique=true, nullable=false)
 	private Long uniqueCode;
 	private String description;
 	public enum Type {PRIVATO, OPENSPACE, SALA_RIUNIONI}

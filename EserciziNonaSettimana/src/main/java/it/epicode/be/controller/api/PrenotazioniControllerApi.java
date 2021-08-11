@@ -19,7 +19,6 @@ import it.epicode.be.controller.api.dto.PrenotazioneDTO;
 import it.epicode.be.controller.model.Regole;
 import it.epicode.be.exception.BusinessLogicException;
 import it.epicode.be.model.Prenotazione;
-import it.epicode.be.serviceinterface.AbstractInfo;
 import it.epicode.be.serviceinterface.AbstractPrenotazioneService;
 
 @RestController
@@ -29,8 +28,6 @@ public class PrenotazioniControllerApi {
 
 	@Autowired
 	private AbstractPrenotazioneService prs;
-	@Autowired
-	private AbstractInfo inre;
 
 //	@GetMapping
 //	@PostMapping
@@ -41,7 +38,7 @@ public class PrenotazioniControllerApi {
 	public ResponseEntity<String> info(@RequestParam String lang) { // @PathVariable
 		Regole reg;
 		try {
-			reg = inre.langRegola(lang);
+			reg = prs.langRegola(lang);
 			return new ResponseEntity<>(reg.getTesto(), HttpStatus.OK);
 		} catch (BusinessLogicException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);

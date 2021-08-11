@@ -18,12 +18,6 @@ public class PostazioneService implements AbstractPostazioneService {
 	@Autowired
 	private PostazioneRepository por;
 	
-	
-	@Override
-	public Page<Postazione> findByTypeAndCity(Type type, String city, Pageable pageable){
-		return por.findByTypeAndBuildingCity(type, city, pageable);
-	}
-
 
 	@Override
 	public Page<Postazione> findByTypeAndBuildingCityFree(String city, Type type, LocalDate dateReservation,
@@ -31,5 +25,9 @@ public class PostazioneService implements AbstractPostazioneService {
 		return por.findByTypeAndBuildingCityFree(city, type,dateReservation, pageable);
 	}
 	
+	@Override
+	public Page<Postazione> findByTypeAndBuildingCity(Type type, String city, Pageable pageable){
+		return por.findByTypeAndBuildingCity(type, city, pageable);
+	}
 	
 }

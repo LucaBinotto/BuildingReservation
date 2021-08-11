@@ -26,15 +26,6 @@ public class PostazioniControllerApi {
 	@Autowired
 	private AbstractPostazioneService pos;
 
-//	@GetMapping
-//	public ResponseEntity<Page<PostazioneDTO>> searchPostazioniByCityAndType(@RequestParam Type type,
-//			@RequestParam String city, @RequestParam int pageNum, @RequestParam int pageSize) {
-//		Pageable pageable = PageRequest.of(pageNum, pageSize);
-//		Page<Postazione> pagPost = pos.findByTypeAndCity(type, city, pageable);
-//		Page<PostazioneDTO> pagPostDto = pagPost.map(PostazioneDTO::fromPostazione);
-//		return new ResponseEntity<>(pagPostDto, HttpStatus.OK);
-//	}
-
 	@GetMapping
 	public ResponseEntity<Page<PostazioneDTO>> findByTypeAndBuildingCityFree(@RequestParam Type type,
 			@RequestParam String city, @RequestParam int pageNum, @RequestParam int pageSize,
@@ -42,7 +33,7 @@ public class PostazioniControllerApi {
 		Pageable pageable = PageRequest.of(pageNum, pageSize);
 		Page<Postazione> pagPost = null;
 		if (dateReservation.isEmpty()) {
-			pagPost = pos.findByTypeAndCity(type, city, pageable);
+			pagPost = pos.findByTypeAndBuildingCity(type, city, pageable);
 		} else {
 			pagPost = pos.findByTypeAndBuildingCityFree(city, type, dateReservation.get(), pageable);
 		}

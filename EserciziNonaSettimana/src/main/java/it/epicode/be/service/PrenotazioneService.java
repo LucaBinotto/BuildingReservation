@@ -11,12 +11,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import it.epicode.be.controller.model.Regole;
 import it.epicode.be.exception.BusinessLogicException;
 import it.epicode.be.exception.EntityNotFoundException;
 import it.epicode.be.model.Postazione;
 import it.epicode.be.model.Prenotazione;
 import it.epicode.be.model.User;
-import it.epicode.be.model.Postazione.Type;
 import it.epicode.be.repository.PostazioneRepository;
 import it.epicode.be.repository.PrenotazioneRepository;
 import it.epicode.be.repository.UserRepository;
@@ -25,8 +25,6 @@ import it.epicode.be.serviceinterface.AbstractPrenotazioneService;
 @Service
 public class PrenotazioneService implements AbstractPrenotazioneService {
 
-//	@Autowired
-//	private BuildingRepository bur;
 	@Autowired
 	private PostazioneRepository por;
 	@Autowired
@@ -43,9 +41,25 @@ public class PrenotazioneService implements AbstractPrenotazioneService {
 	@Value("${exception.postazionealreadyreserved}")
 	String postazionealreadyreserved;
 
+	@Value("${lang.italiano}")
+	String regole;
+	@Value("${lang.inglese}")
+	String rules;
+	@Value("${lang.notsupported}")
+	String error;
+	
 	@Override
-	public Page<Postazione> findByTypeAndBuildingCity(Type type, String city, Pageable pageable){
-		return por.findByTypeAndBuildingCity(type, city, pageable);
+	public Regole langRegola(String lang) throws BusinessLogicException {
+		Regole reg = new Regole();
+		if(lang.equals("eng")) {
+			reg.setTesto(rules);
+			return reg;
+		}else if(lang.equals("ita")) {
+			reg.setTesto(regole);
+			return reg;
+		}else {
+			throw new BusinessLogicException(error);
+		}
 	}
 	
 	@Override
@@ -69,19 +83,11 @@ public class PrenotazioneService implements AbstractPrenotazioneService {
 		Optional<Postazione> p = por.findById(pren.getPostazione().getUniqueCode());
 		if (p.isEmpty())
 			throw new EntityNotFoundException(entitynotfound, Postazione.class);
-//		Pageable pageable = PageRequest.of(0, 1);
-//		Page<Prenotazione> paginaPren = prr.findByUserAndDate(u.get(), pren.getDateReservation(), pageable);
-//		if (paginaPren.hasContent()) {
-//			throw new BusinessLogicException(alreadyhavereservation);
-//		}
+
 		if(userHasReservationForDays(u.get(), pren.getDateReservation())) {
 			throw new BusinessLogicException(alreadyhavereservation);
 		}
 		
-//		Page<Prenotazione> paginaPren1 = prr.findByPostazioneAndDate(p.get(), pren.getDateReservation(), pageable);
-//		if (paginaPren1.hasContent()) {
-//			throw new BusinessLogicException(postazionealreadyreserved);
-//		}
 		if(isWorkspaceAvaiable(p.get(),pren.getDateReservation())) {
 			throw new BusinessLogicException(postazionealreadyreserved);
 		}
@@ -89,21 +95,18 @@ public class PrenotazioneService implements AbstractPrenotazioneService {
 		return prr.save(pren);
 	}
 
-	@Override
-	public boolean diffInDaysIsLessThan(int numDays, LocalDate firstDate, LocalDate secondDate) {
+	private boolean diffInDaysIsLessThan(int numDays, LocalDate firstDate, LocalDate secondDate) {
 		LocalDate numDayBefore = secondDate.minusDays(numDays);
 		return firstDate.isAfter(numDayBefore);
 	}
 
-	@Override
-	public boolean isWorkspaceAvaiable(Postazione p, LocalDate date) {
+	private boolean isWorkspaceAvaiable(Postazione p, LocalDate date) {
 		Pageable pageable = PageRequest.of(0, 1);
 		Page<Prenotazione> paginaPren = prr.findByPostazioneAndDateReservation(p, date, pageable);
 		return paginaPren.hasContent();
 	}
 	
-	@Override
-	public boolean userHasReservationForDays(User u, LocalDate date) {
+	private boolean userHasReservationForDays(User u, LocalDate date) {
 		Pageable pageable = PageRequest.of(0, 1);
 		Page<Prenotazione> paginaPren = prr.findByUserAndDateReservation(u, date, pageable);
 		return paginaPren.hasContent();

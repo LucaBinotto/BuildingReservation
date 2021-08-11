@@ -14,7 +14,7 @@ public class StartupPrenotazioni implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 
-		log.info("cacca");
+		log.info("Running");
 	}
 
 }

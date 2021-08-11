@@ -10,7 +10,7 @@ import it.epicode.be.model.Postazione.Type;
 
 public interface AbstractPostazioneService {
 
-	Page<Postazione> findByTypeAndCity(Type type, String city, Pageable pageable);
-
 	Page<Postazione> findByTypeAndBuildingCityFree(String city, Type type, LocalDate dateReservation, Pageable pageable);
+
+	Page<Postazione> findByTypeAndBuildingCity(Type type, String city, Pageable pageable);
 }
