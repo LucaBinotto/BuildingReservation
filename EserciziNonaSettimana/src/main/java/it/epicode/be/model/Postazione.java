@@ -6,6 +6,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import org.springframework.stereotype.Component;
@@ -25,7 +26,7 @@ public class Postazione {
 	@Enumerated(EnumType.STRING)
 	private Type type;
 	private int maxCapacity;
-	
 	@ManyToOne
+	@JoinColumn(name="building_id") //serve per rinominare la colonna foreign key
 	private Building building;
 }

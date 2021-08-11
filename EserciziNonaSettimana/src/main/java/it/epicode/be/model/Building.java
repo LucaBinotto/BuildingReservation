@@ -24,6 +24,7 @@ public class Building {
 	private String address;
 	private String city;
 	@OneToMany(mappedBy = "building")
+	//@JsonIgnore Usare i DTO al posto di usare ignore
 	private List<Postazione> postazioni;
 
 }

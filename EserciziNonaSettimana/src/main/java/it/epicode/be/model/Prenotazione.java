@@ -23,6 +23,9 @@ public class Prenotazione {
 	private User user;
 	@ManyToOne //da capire
 	private Postazione postazione;
-	private LocalDate date;
+	private LocalDate dateReservationMade; //data in cui è stata fatta prenotazione
+	private LocalDate dateReservation; //data in cui la postazione verrà utilizzata
+
+	
 	
 }
