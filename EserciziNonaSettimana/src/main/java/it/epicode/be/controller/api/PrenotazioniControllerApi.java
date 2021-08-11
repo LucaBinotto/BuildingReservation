@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,13 +45,12 @@ public class PrenotazioniControllerApi {
 		} catch (BusinessLogicException e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
-		
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<?> getPrenotazioneById(@PathVariable Long id){
+	public ResponseEntity<?> getPrenotazioneById(@PathVariable Long id) {
 		Optional<Prenotazione> cercata = prs.findPrenotazioneById(id);
-		if(cercata.isEmpty()) {
+		if (cercata.isEmpty()) {
 			return new ResponseEntity<>("Prenotazione non trovata", HttpStatus.NOT_FOUND);
 		}
 		PrenotazioneDTO cerDto = PrenotazioneDTO.fromPrenotazione(cercata.get());
@@ -59,9 +60,15 @@ public class PrenotazioniControllerApi {
 	@GetMapping
 	public ResponseEntity<List<PrenotazioneDTO>> listaPrenotazioni() {
 		List<Prenotazione> prenotazioni = prs.listaPrenotazioni();
-		List<PrenotazioneDTO> prenotazioniDto = prenotazioni.stream().map(PrenotazioneDTO::fromPrenotazione).collect(Collectors.toList());
+		List<PrenotazioneDTO> prenotazioniDto = prenotazioni.stream().map(PrenotazioneDTO::fromPrenotazione)
+				.collect(Collectors.toList());
 		return new ResponseEntity<>(prenotazioniDto, HttpStatus.OK);
 	}
 	
+	@PostMapping
+	public ResponseEntity<?> insertPrenotazione(@RequestBody PrenotazioneDTO prenDto){
+		
+	}
 	
+
 }
