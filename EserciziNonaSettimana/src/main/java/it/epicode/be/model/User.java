@@ -30,13 +30,13 @@ public class User {
 	private Long id;
 	@Column(unique=true)
 	private String username;
-	private String name; //TODO
+	private String name;
 	private String surname;
 	private String email;
 	@OneToMany(mappedBy = "user")
 	private List<Prenotazione> prenotazioni;
 	
-	// TODO added
+
 	private Boolean active = true;
 	private String password;
 	@ManyToMany

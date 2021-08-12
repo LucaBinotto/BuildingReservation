@@ -20,15 +20,15 @@ import it.epicode.be.service.UserService;
 public class UserControllerApi {
 	
 	@Autowired
-	UserService usr;
+	UserService uss;
 	
 	@GetMapping
-	@PreAuthorize("hasRole('ROLE_ADMIN')") //TODO
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<List<UserDTO>> listaPrenotazioni() {
-		List<User> user = usr.listaUser();
-		List<UserDTO> UseDto = user.stream().map(UserDTO::fromUser)
+		List<User> user = uss.listaUser();
+		List<UserDTO> useDto = user.stream().map(UserDTO::fromUser)
 				.collect(Collectors.toList());
-		return new ResponseEntity<>(UseDto, HttpStatus.OK);
+		return new ResponseEntity<>(useDto, HttpStatus.OK);
 	}
 	
 //	@PostMapping

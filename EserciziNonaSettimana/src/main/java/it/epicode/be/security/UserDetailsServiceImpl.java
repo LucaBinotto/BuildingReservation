@@ -2,6 +2,8 @@ package it.epicode.be.security;
 
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,7 +17,9 @@ import it.epicode.be.repository.UserRepository;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-
+	
+	Logger log = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
+	
 	@Autowired
 	UserRepository userRepository;
 
@@ -23,7 +27,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Transactional
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Optional<User> user = userRepository.findByUsername(username);
-        System.out.println("loadUserByUsername");
+		log.info("loadUserByUsername");
 		if (user.isPresent()) {
 			return UserDetailsImpl.build(user.get());
 		} else {

@@ -15,4 +15,7 @@ public interface PrenotazioneRepository  extends JpaRepository<Prenotazione,Long
 	public Page<Prenotazione> findByUserAndDateReservation(User u, LocalDate date, Pageable pageable);
 	
 	public Page<Prenotazione> findByPostazioneAndDateReservation(Postazione p, LocalDate dateReservation, Pageable pageable);
+
+	public Page<Prenotazione> findByUserId(Long userId, Pageable pageable);
+	
 }

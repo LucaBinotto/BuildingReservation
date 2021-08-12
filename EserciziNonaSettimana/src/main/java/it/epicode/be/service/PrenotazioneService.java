@@ -150,4 +150,9 @@ public class PrenotazioneService implements AbstractPrenotazioneService {
 		Page<Prenotazione> paginaPren = prr.findByUserAndDateReservation(u, date, pageable);
 		return paginaPren.hasContent();
 	}
+
+	@Override
+	public Page<Prenotazione> listaPrenotazioniByUserId(Long userId, Pageable pageable) {
+		return prr.findByUserId(userId, pageable);
+	}
 }

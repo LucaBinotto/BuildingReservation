@@ -8,9 +8,14 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +31,8 @@ import it.epicode.be.dto.PrenotazioneDTO;
 import it.epicode.be.exception.BusinessLogicException;
 import it.epicode.be.exception.EntityNotFoundException;
 import it.epicode.be.model.Prenotazione;
+import it.epicode.be.model.User;
+import it.epicode.be.service.UserService;
 import it.epicode.be.serviceinterface.AbstractPrenotazioneService;
 
 @RestController
@@ -35,7 +42,9 @@ public class PrenotazioniControllerApi {
 
 	@Autowired
 	private AbstractPrenotazioneService prs;
-
+	@Autowired
+	UserService uss;
+	
 	@GetMapping("/info")
 	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
 	public ResponseEntity<String> info(@RequestParam String lang) { // @PathVariable
@@ -115,6 +124,22 @@ public class PrenotazioniControllerApi {
 			return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
 		}
 	}
-	//TODO Put per utente loggato, sulle proprie prenotazioni
 
+	@GetMapping("/mie")
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+	public ResponseEntity<?> getPrenotazioniByLoggedUser(@RequestParam int pageNum, @RequestParam int pageSize) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication.getName();
+		
+		Optional<User> trovato = uss.userByUsername(username);
+		if (trovato.isEmpty()) {
+			return new ResponseEntity<>("Utente non trovato", HttpStatus.NOT_FOUND);
+		}
+		Long userId = trovato.get().getId();
+		Pageable pageable = PageRequest.of(pageNum, pageSize);
+		Page<PrenotazioneDTO> prenDto = prs.listaPrenotazioniByUserId(userId, pageable).map(PrenotazioneDTO::fromPrenotazione);
+		
+		return new ResponseEntity<>(prenDto, HttpStatus.OK);
+	}
 }
