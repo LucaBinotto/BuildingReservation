@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import it.epicode.be.controller.api.dto.PrenotazioneDTO;
 import it.epicode.be.controller.model.Regole;
+import it.epicode.be.dto.PrenotazioneDTO;
 import it.epicode.be.exception.BusinessLogicException;
 import it.epicode.be.exception.EntityNotFoundException;
 import it.epicode.be.model.Prenotazione;

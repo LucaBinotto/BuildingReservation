@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import it.epicode.be.controller.api.dto.UserDTO;
+import it.epicode.be.dto.UserDTO;
 import it.epicode.be.model.User;
 import it.epicode.be.service.UserService;
 

@@ -1,4 +1,4 @@
-package it.epicode.be.controller.api.dto;
+package it.epicode.be.dto;
 
 import java.time.LocalDate;
 

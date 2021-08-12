@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import it.epicode.be.controller.api.dto.PostazioneDTO;
+import it.epicode.be.dto.PostazioneDTO;
 import it.epicode.be.model.Postazione;
 import it.epicode.be.model.Postazione.Type;
 import it.epicode.be.serviceinterface.AbstractPostazioneService;

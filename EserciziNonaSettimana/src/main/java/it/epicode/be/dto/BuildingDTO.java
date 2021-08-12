@@ -1,4 +1,4 @@
-package it.epicode.be.controller.api.dto;
+package it.epicode.be.dto;
 
 import it.epicode.be.model.Building;
 import lombok.Data;

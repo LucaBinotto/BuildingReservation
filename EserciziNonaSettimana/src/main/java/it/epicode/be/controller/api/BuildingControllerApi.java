@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import it.epicode.be.controller.api.dto.BuildingDTO;
+import it.epicode.be.dto.BuildingDTO;
 import it.epicode.be.exception.EntityNotFoundException;
 import it.epicode.be.model.Building;
 import it.epicode.be.serviceinterface.AbstractBuildingService;
