@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,7 @@ public class BuildingControllerApi {
 	AbstractBuildingService bus;
 	
 	@PostMapping
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<BuildingDTO> insert(@RequestBody BuildingDTO buildDto) {
 		Building build = buildDto.toBuilding();
 		Building inserted = bus.insert(build);
@@ -35,6 +37,7 @@ public class BuildingControllerApi {
 	}
 	
 	@PutMapping("/{id}")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<?> update(@PathVariable Long id, @RequestBody BuildingDTO buildDto) {
 		if(id.equals(buildDto.getId())) {
 			return new ResponseEntity<>("L'id non corrisponde",HttpStatus.BAD_REQUEST);
@@ -51,6 +54,7 @@ public class BuildingControllerApi {
 	}
 	
 	@GetMapping
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
 	public ResponseEntity<List<BuildingDTO>> listaBuilding() {
 		List<Building> prenotazioni = bus.listaBuilding();
 		List<BuildingDTO> prenotazioniDto = prenotazioni.stream().map(BuildingDTO::fromBuilding)
@@ -59,6 +63,7 @@ public class BuildingControllerApi {
 	}
 	
 	@DeleteMapping("/{id}")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<?> deleteBuilding(@PathVariable Long id) {
 		try {
 			bus.deleteBuilding(id);

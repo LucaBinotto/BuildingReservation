@@ -12,7 +12,7 @@ import it.epicode.be.repository.UserRepository;
 public class UserService {
 	
 	@Autowired
-	UserRepository usr;
+	private UserRepository usr;
 
 	public List<User> listaUser() {
 		return usr.findAll();

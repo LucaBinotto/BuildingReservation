@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,6 +37,7 @@ public class PrenotazioniControllerApi {
 	private AbstractPrenotazioneService prs;
 
 	@GetMapping("/info")
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
 	public ResponseEntity<String> info(@RequestParam String lang) { // @PathVariable
 		Regole reg;
 		try {
@@ -47,6 +49,7 @@ public class PrenotazioniControllerApi {
 	}
 
 	@GetMapping("/{id}")
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
 	public ResponseEntity<?> getPrenotazioneById(@PathVariable Long id) {
 		Optional<Prenotazione> cercata = prs.findPrenotazioneById(id);
 		if (cercata.isEmpty()) {
@@ -57,6 +60,7 @@ public class PrenotazioniControllerApi {
 	}
 
 	@GetMapping
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
 	public ResponseEntity<List<PrenotazioneDTO>> listaPrenotazioni() {
 		List<Prenotazione> prenotazioni = prs.listaPrenotazioni();
 		List<PrenotazioneDTO> prenotazioniDto = prenotazioni.stream().map(PrenotazioneDTO::fromPrenotazione)
@@ -65,6 +69,7 @@ public class PrenotazioniControllerApi {
 	}
 
 	@PostMapping
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<?> insertPrenotazione(@RequestBody PrenotazioneDTO prenDto) {
 
 		if (prenDto.getDateReservationMade() == null || prenDto.getDateReservationMade().equals(LocalDate.now())) {
@@ -84,6 +89,7 @@ public class PrenotazioniControllerApi {
 	}
 
 	@DeleteMapping("/{id}")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<?> deletePrenotazione(@PathVariable Long id) {
 		try {
 			prs.deletePrenotazione(id);
@@ -94,6 +100,7 @@ public class PrenotazioniControllerApi {
 	}
 	
 	@PutMapping("/{id}")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<?> updatePrenotazione(@PathVariable Long id , @RequestBody PrenotazioneDTO preDto){
 		if(!id.equals(preDto.getId())) {
 			return new ResponseEntity<>("L'id non corrisponde", HttpStatus.BAD_REQUEST);
@@ -108,5 +115,6 @@ public class PrenotazioniControllerApi {
 			return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
 		}
 	}
+	//TODO Put per utente loggato, sulle proprie prenotazioni
 
 }

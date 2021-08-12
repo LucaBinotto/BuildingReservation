@@ -17,7 +17,7 @@ import it.epicode.be.serviceinterface.AbstractBuildingService;
 public class BuildingService implements AbstractBuildingService {
 
 	@Autowired
-	BuildingRepository bur;
+	private BuildingRepository bur;
 	@Value("${exception.entitynotfound}")
 	String entitynotfound;
 
