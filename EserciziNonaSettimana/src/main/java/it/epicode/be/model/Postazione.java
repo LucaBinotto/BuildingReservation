@@ -28,7 +28,7 @@ public class Postazione {
 	@Enumerated(EnumType.STRING)
 	private Type type;
 	private int maxCapacity;
-	@ManyToOne
+	@ManyToOne//(cascade = CascadeType.MERGE) update anche l'edificio, con tutti i sui dati  -  per cambiare edificio, non serve, basta il cascade base, e mettere un id di edificio esistente
 	@JoinColumn(name="building_id") //serve per rinominare la colonna foreign key
 	private Building building;
 }

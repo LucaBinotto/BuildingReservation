@@ -23,11 +23,13 @@ public class Prenotazione {
 	private Long id;
 	@ManyToOne
 	private User user;
-	@ManyToOne //da capire
+	@ManyToOne 
 	private Postazione postazione;
 	private LocalDate dateReservationMade; //data in cui è stata fatta prenotazione
 	private LocalDate dateReservation; //data in cui la postazione verrà utilizzata
 
-	
+	public Prenotazione() {
+		dateReservationMade = LocalDate.now();
+	}
 	
 }

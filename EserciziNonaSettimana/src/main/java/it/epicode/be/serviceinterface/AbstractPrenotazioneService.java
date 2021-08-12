@@ -18,4 +18,7 @@ public interface AbstractPrenotazioneService {
 
 	Regole langRegola(String lang) throws BusinessLogicException;
 
+	public void deletePrenotazione(Long id) throws EntityNotFoundException;
+
+	Prenotazione updatePrenotazione(Prenotazione pre) throws EntityNotFoundException, BusinessLogicException ;
 }

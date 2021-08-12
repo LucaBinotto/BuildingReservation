@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository;
 import it.epicode.be.model.Building;
 @Repository
 public interface BuildingRepository  extends JpaRepository<Building,Long>{
-
+	
+	
 }

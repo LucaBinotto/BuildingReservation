@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -47,21 +48,21 @@ public class PrenotazioneService implements AbstractPrenotazioneService {
 	String rules;
 	@Value("${lang.notsupported}")
 	String error;
-	
+
 	@Override
 	public Regole langRegola(String lang) throws BusinessLogicException {
 		Regole reg = new Regole();
-		if(lang.equals("eng")) {
+		if (lang.equals("eng")) {
 			reg.setTesto(rules);
 			return reg;
-		}else if(lang.equals("ita")) {
+		} else if (lang.equals("ita")) {
 			reg.setTesto(regole);
 			return reg;
-		}else {
+		} else {
 			throw new BusinessLogicException(error);
 		}
 	}
-	
+
 	@Override
 	public List<Prenotazione> listaPrenotazioni() {
 		return prr.findAll();
@@ -71,10 +72,10 @@ public class PrenotazioneService implements AbstractPrenotazioneService {
 	public Optional<Prenotazione> findPrenotazioneById(Long id) {
 		return prr.findById(id);
 	}
+
 	
-	@Override
-	public Prenotazione insertPrenotazione(Prenotazione pren) throws EntityNotFoundException, BusinessLogicException {
-		if (diffInDaysIsLessThan(2, pren.getDateReservation(), pren.getDateReservationMade())) {
+	private void businessLogic(Prenotazione pren) throws BusinessLogicException, BusinessLogicException {
+		if (diffInDaysIsLessThan(2, pren.getDateReservationMade(), pren.getDateReservation())) {
 			throw new BusinessLogicException(lessthantwodays);
 		}
 		Optional<User> u = usr.findById(pren.getUser().getId());
@@ -84,15 +85,38 @@ public class PrenotazioneService implements AbstractPrenotazioneService {
 		if (p.isEmpty())
 			throw new EntityNotFoundException(entitynotfound, Postazione.class);
 
-		if(userHasReservationForDays(u.get(), pren.getDateReservation())) {
-			throw new BusinessLogicException(alreadyhavereservation);
-		}
-		
-		if(isWorkspaceAvaiable(p.get(),pren.getDateReservation())) {
+		if (isWorkspaceAvaiable(p.get(), pren.getDateReservation())) {
 			throw new BusinessLogicException(postazionealreadyreserved);
 		}
-		
+	}
+	
+	@Override
+	public Prenotazione insertPrenotazione(Prenotazione pren) throws EntityNotFoundException, BusinessLogicException {
+		businessLogic(pren);
+		if (userHasOtherReservationForDays(pren.getUser(), pren.getDateReservation())) {
+			throw new BusinessLogicException(alreadyhavereservation);
+		}
 		return prr.save(pren);
+	}
+
+	@Override
+	public Prenotazione updatePrenotazione(Prenotazione newPrenotazione)
+			throws EntityNotFoundException, BusinessLogicException {
+		Optional<Prenotazione> oold = prr.findById(newPrenotazione.getId());
+		if (oold.isEmpty()) {
+			throw new EntityNotFoundException(entitynotfound, Prenotazione.class);
+		}
+		businessLogic(newPrenotazione);
+		return prr.save(newPrenotazione);
+	}
+
+	@Override
+	public void deletePrenotazione(Long id) throws EntityNotFoundException {
+		try {
+			prr.deleteById(id);
+		} catch (EmptyResultDataAccessException e) {
+			throw new EntityNotFoundException(entitynotfound, Prenotazione.class);
+		}
 	}
 
 	private boolean diffInDaysIsLessThan(int numDays, LocalDate firstDate, LocalDate secondDate) {
@@ -105,8 +129,23 @@ public class PrenotazioneService implements AbstractPrenotazioneService {
 		Page<Prenotazione> paginaPren = prr.findByPostazioneAndDateReservation(p, date, pageable);
 		return paginaPren.hasContent();
 	}
+
+	@SuppressWarnings("unused")
+	private boolean userHasOtherReservationForDays(User u, LocalDate date, Long idReservation) {     
+
+		Pageable pageable = PageRequest.of(0, 1);
+		Page<Prenotazione> paginaPren = prr.findByUserAndDateReservation(u, date, pageable);
+		if (idReservation.equals(0l)) {
+			return paginaPren.hasContent();
+		}
+		if (paginaPren.isEmpty()) {
+			return false;
+		}else {
+		return paginaPren.get().findFirst().get().getId().equals(idReservation);
+		}
+	}
 	
-	private boolean userHasReservationForDays(User u, LocalDate date) {
+	private boolean userHasOtherReservationForDays(User u, LocalDate date) {
 		Pageable pageable = PageRequest.of(0, 1);
 		Page<Prenotazione> paginaPren = prr.findByUserAndDateReservation(u, date, pageable);
 		return paginaPren.hasContent();

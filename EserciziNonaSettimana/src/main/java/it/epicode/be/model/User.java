@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import lombok.Data;
 
 @Data
-@Entity
+@Entity(name="users")
 @Component
 public class User {
 	
