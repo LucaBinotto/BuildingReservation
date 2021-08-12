@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import it.epicode.be.model.Building;
@@ -113,6 +114,9 @@ public class StartupPrenotazioni implements CommandLineRunner{
 		prr.save(pren3);
 		
 		//Dare a mano i ruoli
+		
+//			ROLE_USER
+//		    ROLE_ADMIN
 		
 		
 	}
