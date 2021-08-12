@@ -32,8 +32,8 @@ import it.epicode.be.exception.BusinessLogicException;
 import it.epicode.be.exception.EntityNotFoundException;
 import it.epicode.be.model.Prenotazione;
 import it.epicode.be.model.User;
-import it.epicode.be.service.UserService;
 import it.epicode.be.serviceinterface.AbstractPrenotazioneService;
+import it.epicode.be.serviceinterface.AbstractUserService;
 
 @RestController
 @RequestMapping("/api/prenotazioni")
@@ -43,7 +43,7 @@ public class PrenotazioniControllerApi {
 	@Autowired
 	private AbstractPrenotazioneService prs;
 	@Autowired
-	UserService uss;
+	AbstractUserService uss;
 	
 	@GetMapping("/info")
 	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")

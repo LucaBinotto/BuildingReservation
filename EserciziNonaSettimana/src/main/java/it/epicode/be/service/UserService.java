@@ -8,17 +8,20 @@ import org.springframework.stereotype.Service;
 
 import it.epicode.be.model.User;
 import it.epicode.be.repository.UserRepository;
+import it.epicode.be.serviceinterface.AbstractUserService;
 
 @Service
-public class UserService {
+public class UserService implements AbstractUserService {
 	
 	@Autowired
 	private UserRepository usr;
 
+	@Override
 	public List<User> listaUser() {
 		return usr.findAll();
 	}
 	
+	@Override
 	public Optional<User> userByUsername(String username){
 		return usr.findByUsername(username);
 	}

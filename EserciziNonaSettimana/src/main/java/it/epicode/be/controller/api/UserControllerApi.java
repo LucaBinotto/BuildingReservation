@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import it.epicode.be.dto.UserDTO;
 import it.epicode.be.model.User;
-import it.epicode.be.service.UserService;
+import it.epicode.be.serviceinterface.AbstractUserService;
 
 @RestController
 @RequestMapping("/api/user")
 public class UserControllerApi {
 	
 	@Autowired
-	UserService uss;
+	AbstractUserService uss;
 	
 	@GetMapping
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
