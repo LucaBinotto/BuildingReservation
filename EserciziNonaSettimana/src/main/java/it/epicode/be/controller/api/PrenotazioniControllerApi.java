@@ -44,7 +44,7 @@ public class PrenotazioniControllerApi {
 	private AbstractPrenotazioneService prs;
 	@Autowired
 	AbstractUserService uss;
-	
+
 	@GetMapping("/info")
 	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
 	public ResponseEntity<String> info(@RequestParam String lang) { // @PathVariable
@@ -107,39 +107,40 @@ public class PrenotazioniControllerApi {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
 	}
-	
+
 	@PutMapping("/{id}")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public ResponseEntity<?> updatePrenotazione(@PathVariable Long id , @RequestBody PrenotazioneDTO preDto){
-		if(!id.equals(preDto.getId())) {
+	public ResponseEntity<?> updatePrenotazione(@PathVariable Long id, @RequestBody PrenotazioneDTO preDto) {
+		if (!id.equals(preDto.getId())) {
 			return new ResponseEntity<>("L'id non corrisponde", HttpStatus.BAD_REQUEST);
 		}
 		Prenotazione pre = preDto.toPrenotazione();
 		try {
 			Prenotazione updated = prs.updatePrenotazione(pre);
-			return new ResponseEntity<>(PrenotazioneDTO.fromPrenotazione(updated),HttpStatus.OK);
+			return new ResponseEntity<>(PrenotazioneDTO.fromPrenotazione(updated), HttpStatus.OK);
 		} catch (EntityNotFoundException e) {
-			return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
 		} catch (BusinessLogicException e) {
-			return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
 
 	@GetMapping("/mie")
 	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
 	public ResponseEntity<?> getPrenotazioniByLoggedUser(@RequestParam int pageNum, @RequestParam int pageSize) {
-		
+
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication.getName();
-		
+
 		Optional<User> trovato = uss.userByUsername(username);
 		if (trovato.isEmpty()) {
 			return new ResponseEntity<>("Utente non trovato", HttpStatus.NOT_FOUND);
 		}
 		Long userId = trovato.get().getId();
 		Pageable pageable = PageRequest.of(pageNum, pageSize);
-		Page<PrenotazioneDTO> prenDto = prs.listaPrenotazioniByUserId(userId, pageable).map(PrenotazioneDTO::fromPrenotazione);
-		
+		Page<PrenotazioneDTO> prenDto = prs.listaPrenotazioniByUserId(userId, pageable)
+				.map(PrenotazioneDTO::fromPrenotazione);
+
 		return new ResponseEntity<>(prenDto, HttpStatus.OK);
 	}
 }

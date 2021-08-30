@@ -41,7 +41,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		// Questa implementazione non è sicura, verrà modificata in seguito // ancora non sicura, o gia meglio di prima??????
 		return new BCryptPasswordEncoder(4);
 	}
 

@@ -73,7 +73,6 @@ public class PrenotazioneService implements AbstractPrenotazioneService {
 		return prr.findById(id);
 	}
 
-	
 	private void businessLogic(Prenotazione pren) throws BusinessLogicException, BusinessLogicException {
 		if (diffInDaysIsLessThan(2, pren.getDateReservationMade(), pren.getDateReservation())) {
 			throw new BusinessLogicException(lessthantwodays);
@@ -89,7 +88,7 @@ public class PrenotazioneService implements AbstractPrenotazioneService {
 			throw new BusinessLogicException(postazionealreadyreserved);
 		}
 	}
-	
+
 	@Override
 	public Prenotazione insertPrenotazione(Prenotazione pren) throws EntityNotFoundException, BusinessLogicException {
 		businessLogic(pren);
@@ -107,6 +106,11 @@ public class PrenotazioneService implements AbstractPrenotazioneService {
 			throw new EntityNotFoundException(entitynotfound, Prenotazione.class);
 		}
 		businessLogic(newPrenotazione);
+		if (!oold.get().getDateReservation().equals(newPrenotazione.getDateReservation())) {
+			if (userHasOtherReservationForDays(newPrenotazione.getUser(), newPrenotazione.getDateReservation())) {
+				throw new BusinessLogicException(alreadyhavereservation);
+			}
+		}
 		return prr.save(newPrenotazione);
 	}
 
@@ -131,7 +135,7 @@ public class PrenotazioneService implements AbstractPrenotazioneService {
 	}
 
 	@SuppressWarnings("unused")
-	private boolean userHasOtherReservationForDays(User u, LocalDate date, Long idReservation) {     
+	private boolean userHasOtherReservationForDays(User u, LocalDate date, Long idReservation) {
 
 		Pageable pageable = PageRequest.of(0, 1);
 		Page<Prenotazione> paginaPren = prr.findByUserAndDateReservation(u, date, pageable);
@@ -140,11 +144,11 @@ public class PrenotazioneService implements AbstractPrenotazioneService {
 		}
 		if (paginaPren.isEmpty()) {
 			return false;
-		}else {
-		return paginaPren.get().findFirst().get().getId().equals(idReservation);
+		} else {
+			return paginaPren.get().findFirst().get().getId().equals(idReservation);
 		}
 	}
-	
+
 	private boolean userHasOtherReservationForDays(User u, LocalDate date) {
 		Pageable pageable = PageRequest.of(0, 1);
 		Page<Prenotazione> paginaPren = prr.findByUserAndDateReservation(u, date, pageable);

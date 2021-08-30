@@ -13,8 +13,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 
@@ -24,6 +26,10 @@ import lombok.Data;
 @Entity(name="app_user")
 @Component
 public class User {
+	
+	@Autowired
+	@Transient
+	PasswordEncoder encoder;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -47,7 +53,7 @@ public class User {
 	private Set<Role> roles = new HashSet<>();	
 	
 	public void setPassword(String password) {
-		this.password = new BCryptPasswordEncoder(4).encode(password);
+		this.password = encoder.encode(password);
 	}
 	
 }
