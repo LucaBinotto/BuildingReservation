@@ -9,6 +9,7 @@ public class BuildingDTO {
 	private String nome;
 	private String address;
 	private String city;
+	private String codiceAllarme;
 	
 	public static BuildingDTO fromBuilding(Building build) {
 		BuildingDTO buildDto = new BuildingDTO();
@@ -16,6 +17,7 @@ public class BuildingDTO {
 		buildDto.setNome(build.getNome());
 		buildDto.setAddress(build.getAddress());
 		buildDto.setCity(build.getCity());
+		buildDto.setCodiceAllarme(build.getCodiceAllarme());
 		return buildDto;
 	}
 	
@@ -25,6 +27,7 @@ public class BuildingDTO {
 		build.setNome(nome);
 		build.setAddress(address);
 		build.setCity(city);
+		build.setCodiceAllarme(codiceAllarme);
 		return build;
 	}
 }

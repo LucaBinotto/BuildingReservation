@@ -25,5 +25,10 @@ public class UserService implements AbstractUserService {
 	public Optional<User> userByUsername(String username){
 		return usr.findByUsername(username);
 	}
+
+	@Override
+	public void save(User u) {
+		usr.save(u);
+	}
 	
 }

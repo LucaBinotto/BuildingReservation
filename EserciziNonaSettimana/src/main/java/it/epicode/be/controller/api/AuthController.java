@@ -10,18 +10,22 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import it.epicode.be.repository.UserRepository;
+import it.epicode.be.dto.UserRegisterDTO;
+import it.epicode.be.model.User;
 import it.epicode.be.security.JwtUtils;
 import it.epicode.be.security.UserDetailsImpl;
 import it.epicode.be.security.login.LoginRequest;
 import it.epicode.be.security.login.LoginResponse;
+import it.epicode.be.serviceinterface.AbstractUserService;
+import lombok.extern.slf4j.Slf4j;
 
-
+@Slf4j
 @RestController
 @RequestMapping("/api")
 public class AuthController {
@@ -29,8 +33,11 @@ public class AuthController {
 	AuthenticationManager authenticationManager;
 
 	@Autowired
-	UserRepository userRepository;
+	AbstractUserService usr;
 
+	@Autowired
+	PasswordEncoder encoder;
+	
 	@Autowired
 	JwtUtils jwtUtils;
 
@@ -51,5 +58,24 @@ public class AuthController {
 
 		return ResponseEntity.ok(
 				new LoginResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles, userDetails.getExpirationTime()));
+	}
+	
+	@PostMapping("/registrazione")
+	public ResponseEntity<?> registerUser(@RequestBody UserRegisterDTO ur){
+		
+		String plainPassword = ur.getPassword();
+		ur.setPassword(encoder.encode(plainPassword));
+		
+		User u = ur.toUser();
+		
+		usr.save(u);
+		
+		log.info("email "+ u.getEmail());
+		log.info("nome "+ u.getName());
+		log.info("username "+ u.getUsername());
+		log.info("nome "+ u.getPassword());
+				
+		
+		return ResponseEntity.ok("Salvataggio utente avvenuto con successo: " + u.getUsername());                                                                                                                                                                               		
 	}
 }

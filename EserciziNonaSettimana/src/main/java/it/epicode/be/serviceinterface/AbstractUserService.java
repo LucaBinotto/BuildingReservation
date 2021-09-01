@@ -11,4 +11,5 @@ public interface AbstractUserService {
 
 	Optional<User> userByUsername(String username);
 
+	void save(User u);
 }
