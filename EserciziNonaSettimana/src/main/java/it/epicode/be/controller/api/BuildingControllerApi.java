@@ -39,7 +39,7 @@ public class BuildingControllerApi {
 	@PutMapping("/{id}")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<?> update(@PathVariable Long id, @RequestBody BuildingDTO buildDto) {
-		if(id.equals(buildDto.getId())) {
+		if(!id.equals(buildDto.getId())) {
 			return new ResponseEntity<>("L'id non corrisponde",HttpStatus.BAD_REQUEST);
 		}
 		Building build = buildDto.toBuilding();
