@@ -1,0 +1,824 @@
+{
+	"info": {
+		"_postman_id": "dccb5524-383f-49d5-b843-73fcf30ef38b",
+		"name": "Esercizio0902",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16849662"
+	},
+	"item": [
+		{
+			"name": "Prenotazioni",
+			"item": [
+				{
+					"name": "get Ita",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/prenotazioni/info?lang=ita",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"prenotazioni",
+								"info"
+							],
+							"query": [
+								{
+									"key": "lang",
+									"value": "ita"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get eng",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/prenotazioni/info?lang=eng",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"prenotazioni",
+								"info"
+							],
+							"query": [
+								{
+									"key": "lang",
+									"value": "eng"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get error",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/prenotazioni/info?lang=rus",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"prenotazioni",
+								"info"
+							],
+							"query": [
+								{
+									"key": "lang",
+									"value": "rus"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all prenotazioni",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/prenotazioni",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"prenotazioni"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get MIE prenotazioni utente",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJFbHZhbmRhciIsImlhdCI6MTYzMDMzMzY1NSwiZXhwIjoxNjMwNTkyODU1fQ.ZYfqR-SJRpZlv2y4jvPD_fdLdvnVoHfi6AZC1SC7pZw_JEcCO2UBs6XnPtc1z0ojDaZJdbc-oErTp0JISSsU5w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJFbHZhbmRhciIsImlhdCI6MTYzMDMzMzY1NSwiZXhwIjoxNjMwNTkyODU1fQ.ZYfqR-SJRpZlv2y4jvPD_fdLdvnVoHfi6AZC1SC7pZw_JEcCO2UBs6XnPtc1z0ojDaZJdbc-oErTp0JISSsU5w",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/prenotazioni/mie?pageNum=0&pageSize=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"prenotazioni",
+								"mie"
+							],
+							"query": [
+								{
+									"key": "pageNum",
+									"value": "0"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get MIE prenotazioni admin",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJFbHZhbmRhciIsImlhdCI6MTYyODc5MjM5OSwiZXhwIjoxNjI5MDUxNTk5fQ.wA9J3B_NvUPzoH7OmogegMzOdVKVeAWKlHiWXNJCjfQ63gCVR2xAbX023Dm05ptm0OQSeZKr8aKF0IqUobgybw",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/prenotazioni/mie?pageNum=0&pageSize=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"prenotazioni",
+								"mie"
+							],
+							"query": [
+								{
+									"key": "pageNum",
+									"value": "0"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post prenotazione",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{      \r\n        \r\n        \"dateReservation\": \"2022-02-23\",\r\n        \"idUser\": 1,\r\n        \"usernameUser\": \"elva\",\r\n        \"idPostazione\": 123,\r\n        \"tipoPostazione\": \"PRIVATO\",\r\n        \"idBuilding\": 666,\r\n        \"buildingName\": \"palazzo culo\",\r\n        \"buildingCity\": \"Padova\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/prenotazioni",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"prenotazioni"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete prenotazione forbidden",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJQaXBwbyIsImlhdCI6MTYyODc4MzUwNiwiZXhwIjoxNjI5MDQyNzA2fQ.fQfFxGnE_Ff810KCb5dDBQU7rWKl-ikWE67ZlxigJFXQgPU0Tm4Sl4ahy6o4T9OJudck5jV7xfAcM0O_s8JIQQ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{      \r\n        \r\n        \"dateReservation\": \"2022-02-23\",\r\n        \"idUser\": 1,\r\n        \"usernameUser\": \"elva\",\r\n        \"idPostazione\": 123,\r\n        \"tipoPostazione\": \"PRIVATO\",\r\n        \"idBuilding\": 666,\r\n        \"buildingName\": \"palazzo culo\",\r\n        \"buildingCity\": \"Padova\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/prenotazioni/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"prenotazioni",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete prenotazione Authorized",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJFbHZhbmRhciIsImlhdCI6MTYyODc4MzQ4NywiZXhwIjoxNjI5MDQyNjg3fQ.WkvzVdkgmE_hlonjZJ01z6A7fRXw2YjpY7eWSDSDlH8K-OIwb70avFk54G1vru9Hzu9QH4zuIPn-18wgnfS6xw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{      \r\n        \r\n        \"dateReservation\": \"2022-02-23\",\r\n        \"idUser\": 1,\r\n        \"usernameUser\": \"elva\",\r\n        \"idPostazione\": 123,\r\n        \"tipoPostazione\": \"PRIVATO\",\r\n        \"idBuilding\": 666,\r\n        \"buildingName\": \"palazzo culo\",\r\n        \"buildingCity\": \"Padova\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/prenotazioni/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"prenotazioni",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put prenotazione",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{      \r\n        \r\n        \"dateReservation\": \"2022-02-23\",\r\n        \"idUser\": 1,\r\n        \"usernameUser\": \"elva\",\r\n        \"idPostazione\": 123,\r\n        \"tipoPostazione\": \"PRIVATO\",\r\n        \"idBuilding\": 666,\r\n        \"buildingName\": \"palazzo culo\",\r\n        \"buildingCity\": \"Padova\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/prenotazioni/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"prenotazioni",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get prenotazioni by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/prenotazioni/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"prenotazioni",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get prenotazioni by id error",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/prenotazioni/115",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"prenotazioni",
+								"115"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Postazione",
+			"item": [
+				{
+					"name": "get postazione by type and city",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJQaXBwbyIsImlhdCI6MTYyODc4MzUwNiwiZXhwIjoxNjI5MDQyNzA2fQ.fQfFxGnE_Ff810KCb5dDBQU7rWKl-ikWE67ZlxigJFXQgPU0Tm4Sl4ahy6o4T9OJudck5jV7xfAcM0O_s8JIQQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/postazioni?type=PRIVATO&city=Roma&pageNum=0&pageSize=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"postazioni"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "PRIVATO"
+								},
+								{
+									"key": "city",
+									"value": "Roma"
+								},
+								{
+									"key": "pageNum",
+									"value": "0"
+								},
+								{
+									"key": "pageSize",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get postazione by type and city and date",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/postazioni?type=PRIVATO&city=Roma&pageNum=0&pageSize=2&dateReservation=2030-02-15",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"postazioni"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "PRIVATO"
+								},
+								{
+									"key": "city",
+									"value": "Roma"
+								},
+								{
+									"key": "pageNum",
+									"value": "0"
+								},
+								{
+									"key": "pageSize",
+									"value": "2"
+								},
+								{
+									"key": "dateReservation",
+									"value": "2030-02-15"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get postazione by type and city and date  - no result, Prenotated",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/postazioni?type=PRIVATO&city=Padova&pageNum=0&pageSize=2&dateReservation=2020-06-26",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"postazioni"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "PRIVATO"
+								},
+								{
+									"key": "city",
+									"value": "Padova"
+								},
+								{
+									"key": "pageNum",
+									"value": "0"
+								},
+								{
+									"key": "pageSize",
+									"value": "2"
+								},
+								{
+									"key": "dateReservation",
+									"value": "2020-06-26"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Building",
+			"item": [
+				{
+					"name": "post building",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJFbHZhbmRhciIsImlhdCI6MTYzMDMzMzY1NSwiZXhwIjoxNjMwNTkyODU1fQ.ZYfqR-SJRpZlv2y4jvPD_fdLdvnVoHfi6AZC1SC7pZw_JEcCO2UBs6XnPtc1z0ojDaZJdbc-oErTp0JISSsU5w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"palazzo Grander\",\r\n    \"address\": \"asddd\",\r\n    \"city\": \"Milano\",\r\n    \"codiceAllarme\": \"1234asdf\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/building",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"building"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete building",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJFbHZhbmRhciIsImlhdCI6MTYzMDMzMzY1NSwiZXhwIjoxNjMwNTkyODU1fQ.ZYfqR-SJRpZlv2y4jvPD_fdLdvnVoHfi6AZC1SC7pZw_JEcCO2UBs6XnPtc1z0ojDaZJdbc-oErTp0JISSsU5w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/building/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"building",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put building",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 2,\r\n    \"nome\": \"palazzo tette\",\r\n    \"address\": \"via sesso, 54\",\r\n    \"city\": \"Padova\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/building/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"building",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all building",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJFbHZhbmRhciIsImlhdCI6MTYzMDMzMzY1NSwiZXhwIjoxNjMwNTkyODU1fQ.ZYfqR-SJRpZlv2y4jvPD_fdLdvnVoHfi6AZC1SC7pZw_JEcCO2UBs6XnPtc1z0ojDaZJdbc-oErTp0JISSsU5w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/building",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"building"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "get all user",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJFbHZhbmRhcjEiLCJpYXQiOjE2NzkwMTk2MTAsImV4cCI6MTY3OTI3ODgxMH0.ryDEd9Dx2_Eye2KtQEdarICw6_t4vSN5pXzPZOFO2PVIUScsO8b9asDkENxyAbeNoYiDH7I3CbpgMKZBxizg-g",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login - request Auth",
+			"item": [
+				{
+					"name": "Login admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"Elvandar1\",\r\n    \"password\":\"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"abc@fas.it\",\r\n    \"name\": \"Luca\",\r\n    \"username\":\"Elvandar1\",\r\n    \"password\":\"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/registrazione",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"registrazione"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"Pippo\",\r\n    \"password\":\"563424\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registrazione user Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"Elvandar9\",\r\n    \"password\":\"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJQaXBwbyIsImlhdCI6MTY3OTAxOTg2NywiZXhwIjoxNjc5Mjc5MDY3fQ.T_yRk42E-xCYKDQ126yh9m4vsqe316W5JId60yTdh_ezSiY-FdmD0Jo0WGZgYwz9DvTQz95iyhipnWm1NUCorA",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
