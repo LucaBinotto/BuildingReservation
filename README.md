@@ -1,4 +1,4 @@
-# Building prenotation
+# Building reservation
 
 This repository is a backend that expose a series of api to create and save reservations on different building.
 
