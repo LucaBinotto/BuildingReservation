@@ -18,7 +18,7 @@ public class PostazioneDTO {
 	private String buildingName;
 	private String buildingCity;
 	
-	
+	 
 	
 	public static PostazioneDTO fromPostazione(Postazione p) {
 		PostazioneDTO pDto = new PostazioneDTO();
