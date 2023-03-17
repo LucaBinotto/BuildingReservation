@@ -31,47 +31,5 @@ public class Prenotazione {
 	public Prenotazione() {
 		dateReservationMade = LocalDate.now();
 	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public Postazione getPostazione() {
-		return postazione;
-	}
-
-	public void setPostazione(Postazione postazione) {
-		this.postazione = postazione;
-	}
-
-	public LocalDate getDateReservationMade() {
-		return dateReservationMade;
-	}
-
-	public void setDateReservationMade(LocalDate dateReservationMade) {
-		this.dateReservationMade = dateReservationMade;
-	}
-
-	public LocalDate getDateReservation() {
-		return dateReservation;
-	}
-
-	public void setDateReservation(LocalDate dateReservation) {
-		this.dateReservation = dateReservation;
-	}
-
-	
 	
 }

@@ -11,7 +11,6 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 public class LoginResponse {
-	
 	private String token;
 	
 	private final String type = "Bearer";
@@ -20,16 +19,6 @@ public class LoginResponse {
 	private String email;
 	private List<String> roles;
 	private Date expirationTime;
-	
-	public LoginResponse(String token, Long id, String username, String email, List<String> roles,
-			Date expirationTime) {
-		this.token = token;
-		this.id = id;
-		this.username = username;
-		this.email = email;
-		this.roles = roles;
-		this.expirationTime = expirationTime;
-	}
 
 
 }

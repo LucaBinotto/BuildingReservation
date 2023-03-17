@@ -40,10 +40,7 @@ public class AuthController {
 	
 	@Autowired
 	JwtUtils jwtUtils;
-	
-	private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(AuthController.class);
 
-	
 	@PostMapping("/login")
 	public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
 
