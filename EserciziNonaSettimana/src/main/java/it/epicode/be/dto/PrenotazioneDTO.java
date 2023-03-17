@@ -71,4 +71,84 @@ public class PrenotazioneDTO {
 		return pr;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public LocalDate getDateReservationMade() {
+		return dateReservationMade;
+	}
+
+	public void setDateReservationMade(LocalDate dateReservationMade) {
+		this.dateReservationMade = dateReservationMade;
+	}
+
+	public LocalDate getDateReservation() {
+		return dateReservation;
+	}
+
+	public void setDateReservation(LocalDate dateReservation) {
+		this.dateReservation = dateReservation;
+	}
+
+	public Long getIdUser() {
+		return idUser;
+	}
+
+	public void setIdUser(Long idUser) {
+		this.idUser = idUser;
+	}
+
+	public String getUsernameUser() {
+		return usernameUser;
+	}
+
+	public void setUsernameUser(String usernameUser) {
+		this.usernameUser = usernameUser;
+	}
+
+	public Long getIdPostazione() {
+		return idPostazione;
+	}
+
+	public void setIdPostazione(Long idPostazione) {
+		this.idPostazione = idPostazione;
+	}
+
+	public String getTipoPostazione() {
+		return tipoPostazione;
+	}
+
+	public void setTipoPostazione(String tipoPostazione) {
+		this.tipoPostazione = tipoPostazione;
+	}
+
+	public Long getIdBuilding() {
+		return idBuilding;
+	}
+
+	public void setIdBuilding(Long idBuilding) {
+		this.idBuilding = idBuilding;
+	}
+
+	public String getBuildingName() {
+		return buildingName;
+	}
+
+	public void setBuildingName(String buildingName) {
+		this.buildingName = buildingName;
+	}
+
+	public String getBuildingCity() {
+		return buildingCity;
+	}
+
+	public void setBuildingCity(String buildingCity) {
+		this.buildingCity = buildingCity;
+	}
+
 }
